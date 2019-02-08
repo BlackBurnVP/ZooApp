@@ -21,12 +21,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //load animals to the list
-        listOfAnimals.add(Animals("Babon","Some description",R.drawable.baboon))
-        listOfAnimals.add(Animals("Buldog","Some description",R.drawable.bulldog))
-        listOfAnimals.add(Animals("Panda","Some description",R.drawable.panda))
-        listOfAnimals.add(Animals("Zebra","Some description",R.drawable.zebra))
-        listOfAnimals.add(Animals("Swallow Bird","Some description",R.drawable.swallow_bird))
-        listOfAnimals.add(Animals("Tiger","Some description",R.drawable.white_tiger))
+        listOfAnimals.add(Animals("Babon","Some description",R.drawable.baboon,false))
+        listOfAnimals.add(Animals("Buldog","Some description",R.drawable.bulldog,true))
+        listOfAnimals.add(Animals("Panda","Some description",R.drawable.panda, false))
+        listOfAnimals.add(Animals("Zebra","Some description",R.drawable.zebra, false))
+        listOfAnimals.add(Animals("Swallow Bird","Some description",R.drawable.swallow_bird,false))
+        listOfAnimals.add(Animals("Tiger","Some description",R.drawable.white_tiger,true))
 
         mListView = findViewById(R.id.lvAnimals)
         adapter = AnimalsAdapter(this,listOfAnimals)
@@ -43,7 +43,12 @@ class MainActivity : AppCompatActivity() {
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val animal = listOfAnimals[position]
             val inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val myView =  inflator?.inflate(R.layout.animal_view,   null)
+            var myView:View? = null
+            if (animal.isColor){
+                myView = inflator?.inflate(R.layout.animal_killer_view, null)
+            }else{
+                myView =  inflator?.inflate(R.layout.animal_view,   null)
+            }
             myView.txt_AnimalName.text = animal.name
             myView.txt_ShortDesc.text = animal.des
             myView.animal_pic.setImageResource(animal.image)
