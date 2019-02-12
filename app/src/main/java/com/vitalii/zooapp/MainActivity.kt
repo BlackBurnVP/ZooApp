@@ -39,6 +39,23 @@ class MainActivity : AppCompatActivity() {
             this.listOfAnimals = listOfAnimals
         }
 
+        /**
+         * Delete clicked animal
+         * @param index - position of clicked item
+         */
+        private fun deleteAnimal(index:Int){
+            listOfAnimals.removeAt(index)
+            adapter!!.notifyDataSetChanged()
+        }
+        /**
+         * Duplicate clicked animal
+         * @param index - position of clicked item
+         */
+        private fun addAnimal(index:Int){
+            listOfAnimals.add(index,listOfAnimals[index])
+            adapter!!.notifyDataSetChanged()
+        }
+
         private var listOfAnimals = ArrayList<Animals>()
         private var context:Context? = null
 
@@ -54,6 +71,8 @@ class MainActivity : AppCompatActivity() {
             myView.txt_ShortDesc.text = animal.des
             myView.animal_pic.setImageResource(animal.image)
             myView.animal_pic.setOnClickListener{
+//                deleteAnimal(position)
+//                addAnimal(position)
                 val intent = Intent(context,AnimalInfo::class.java)
                 intent.putExtra("name",animal.name)
                 intent.putExtra("description",animal.des)
